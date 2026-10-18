@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "FoodRescue"
+description = "A responsive React and TypeScript landing page introducing FoodRescue, a platform connecting surplus-food donors with NGOs. The first milestone is a polished, navigable landing page only; donor and NGO accounts, donation listings, requests, and Supabase are planned for later milestones."
+version = "1.0.0"
+id = "artifacts/foodrescue"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23435
+
+[services.development]
+run = "pnpm --filter @workspace/foodrescue run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/foodrescue", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/foodrescue/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23435"
+BASE_PATH = "/"
